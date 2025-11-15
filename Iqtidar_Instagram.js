@@ -100,7 +100,7 @@ viewAllCommentsByPost(accountName, post){
     let output=[`--- Comments for ${accountName}'s ${post} ---`];     
     AllComment.forEach(comment => {
         // Iterate over comments and format each one as "user:comment"
-        output.push(comment.user+":"+ comment.text);  
+        output.push(comment.user+" : "+ comment.text);  
     });
 
     // Join the array into a single string with newline separators
