@@ -9,11 +9,12 @@ Instagram application (https://www.instagram.com/)
  It allows user to :
  - Add post 
  - Add comments to a post
+ - Delete a comment in the post
  - View all comments on a post
  - Delete a Post
  - Update caption of a post
  - View all post by the user
- - Delete a comment in the post
+
 
 **This module does not require any database**
 
@@ -21,7 +22,7 @@ Instagram application (https://www.instagram.com/)
  1. Install Node.js
  2. Copy the file Iqtidar_Instagram.js into a new project folder
  3. Create a test file (e.g app.js) to test the functions found in Iqtidar_Instagram.js .
- 4. Ensure you add  ` instagramDB = require("./Iqtidar_EGL301"); ` inside the test file.
+ 4. Ensure you add  ` const instagramDB = require("./Iqtidar_Instagram.js"); ` inside the test file.
 
 ## How to call functions, parameters required
 
@@ -43,8 +44,18 @@ Purpose : Adding a comment to a post whether its your own post or other user's p
 
         Parameter(AccountName:String , Post:String , User:String , Comment:String)
 
+
+### 3.deleteComment(AccountName, post , user ,comment)
+
+Purpose : The account can delete comments that it does not want on the post
+
+- AccountnName is validated , checks if such account name exist in the database
+- Post is validated  , checks if the post by the selected account exist 
+- Will check if such comment exist .
+
+        Parameter(AccountName:String , Post:String , User:String , Comment:String) 
         
-### 3.viewAllCommentsByPost(accountName, post)
+### 4.viewAllCommentsByPost(accountName, post)
 
 Purpose : To view all the comment of the selected post
 
@@ -54,7 +65,7 @@ Purpose : To view all the comment of the selected post
 
         Parameter(AccountName:String , Post:String , User:String , Comment:String)
 
-### 4.deletePostByUser(AccountName,post)
+### 5.deletePostByUser(AccountName,post)
 
 Purpose : To delete a post of the selected Account
 
@@ -63,7 +74,7 @@ Purpose : To delete a post of the selected Account
 
         Parameter(AccountName:String , Post:String)
 
-### 5.updateCaptionPost(AccountName,Post,NewCaption)
+### 6.updateCaptionPost(AccountName,Post,NewCaption)
 
 Purpose : To update caption of a selected Account post
 
@@ -72,7 +83,7 @@ Purpose : To update caption of a selected Account post
 
         Parameter(AccountName:String , Post:String, NewCaption:String)
 
-### 6.ViewAllPostByUser(AccountName)
+### 7.ViewAllPostByUser(AccountName)
 
 Purpose : View all Post posted by the Account
 
@@ -81,12 +92,3 @@ Purpose : View all Post posted by the Account
 
         Parameter(AccountName:String)
 
-### 7.deleteComment(AccountName, post , user ,comment)
-
-Purpose : The account can delete comments that it does not want on the post
-
-- AccountnName is validated , checks if such account name exist in the database
-- Post is validated  , checks if the post by the selected account exist 
-- Will check if such comment exist .
-
-        Parameter(AccountName:String , Post:String , User:String , Comment:String) 

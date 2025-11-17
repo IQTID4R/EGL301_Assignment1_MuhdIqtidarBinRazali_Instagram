@@ -1,5 +1,5 @@
 
-instagramDB={
+instagramDB={ //Dummy Data to test on
         john:{
             post_1:{
                 pictures:"sky.jpg",
@@ -42,7 +42,7 @@ AddPost(AccountName,pictures, caption ,hashtags){
 
     let keys= Object.keys(instagramDB[AccountName]) //Keys= [post_1 ,post_2] or keys=[]
 
-    if (keys.length === 0) {
+    if (keys.length === 0) {7
         postNumber = "post_1";  // First post for this user
     }
     else {
@@ -63,7 +63,7 @@ AddPost(AccountName,pictures, caption ,hashtags){
         comments:[],
     }
 
-    return "🎉New Post successfully added by "+ AccountName;
+    return "New Post successfully added by "+ AccountName;
 },
 
 // 2)-----------ADD COMMENT TO AN ACCOUNT USER POST----------
@@ -83,7 +83,36 @@ AddComment(AccountName, post , user ,comment){
     return "Comment by "+ user +" has been added to "+AccountName+"'s " +post  
 },
 
-// 3)--------- VIEW ALL COMMENT ON AN ACCOUNT USER POST----------
+
+
+// 3)----------DELETE A USER COMMENT IN AN ACCOUNT USER POST--------------
+deleteComment(AccountName, post , user ,comment){
+    if(!instagramDB[AccountName]){
+        return "No Account Found";
+    }
+    if(!instagramDB[AccountName][post]){
+        return "no post found by "+ AccountName
+    }
+    
+    let Allcomments = instagramDB[AccountName][post].comments;
+
+    // Use filter to create a new array excluding the comment that matches both user and text
+    let updatedComments = Allcomments.filter(findComment => {
+    return !(findComment.user === user && findComment.text === comment);
+        });
+
+        // Check if the comment list size changed (meaning a comment was deleted)
+        if (updatedComments.length < Allcomments.length) {
+            instagramDB[AccountName][post].comments = updatedComments; // Replace old array with the new one
+            return "Comment has been successfully deleted"
+        
+        } else {
+            return "comment does not exist"; // there is no comment matching both user and text was found
+        }
+
+    },
+
+// 4)--------- VIEW ALL COMMENT ON AN ACCOUNT USER POST----------
 viewAllCommentsByPost(accountName, post){
     if(!instagramDB[accountName]){
         return "User does not exist";
@@ -99,7 +128,7 @@ viewAllCommentsByPost(accountName, post){
     // Prepare the output array, starting with a header
     let output=[`--- Comments for ${accountName}'s ${post} ---`];     
     AllComment.forEach(comment => {
-        // Iterate over comments and format each one as "user:comment"
+    // Iterate over comments and format each one as "user:comment"
         output.push(comment.user+" : "+ comment.text);  
     });
 
@@ -108,7 +137,7 @@ viewAllCommentsByPost(accountName, post){
 
 },
 
-// 4)---------DELETE AN ACCOUNT USER POST-------------
+// 5)---------DELETE AN ACCOUNT USER POST-------------
 deletePostByUser(AccountName,post){
     if(!instagramDB[AccountName]){
         return "User does not exist";
@@ -124,7 +153,7 @@ deletePostByUser(AccountName,post){
 
 },
 
-// 5) ------UPDATE CAPTION OF A ACCOUNT USER POST----------
+// 6) ------UPDATE CAPTION OF A ACCOUNT USER POST----------
 updateCaptionPost(AccountName,Post,NewCaption){
     if(!instagramDB[AccountName]){
         return "User does not exist";
@@ -140,7 +169,7 @@ updateCaptionPost(AccountName,Post,NewCaption){
     
 },
 
-// 6)---------VIEW ALL POST BY ACCOUNT USER--------------
+// 7)---------VIEW ALL POST BY ACCOUNT USER--------------
 ViewAllPostByUser(AccountName){
     if(!instagramDB[AccountName]){
         return "User does not exist"
@@ -169,32 +198,6 @@ ViewAllPostByUser(AccountName){
     return `\nSuccessfully displayed all posts for ${AccountName}.`;
 },
 
-// 7)----------DELETE A USER COMMENT IN AN ACCOUNT USER POST--------------
-deleteComment(AccountName, post , user ,comment){
-    if(!instagramDB[AccountName]){
-        return "No Account Found";
-    }
-    if(!instagramDB[AccountName][post]){
-        return "no post found by "+ AccountName
-    }
-    
-    let Allcomments = instagramDB[AccountName][post].comments;
-
-    // Use filter to create a new array excluding the comment that matches both user and text
-    let updatedComments = Allcomments.filter(findComment => {
-    return !(findComment.user === user && findComment.text === comment);
-        });
-
-        // Check if the comment list size changed (meaning a comment was deleted)
-        if (updatedComments.length < Allcomments.length) {
-            instagramDB[AccountName][post].comments = updatedComments; // Replace old array with the new one
-            return "Comment has been successfully deleted"
-        
-        } else {
-            return "comment does not exist"; // there is no comment matching both user and text was found
-        }
-
-    },
 }
             
 
