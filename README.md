@@ -5,90 +5,118 @@ This Node.js application is a simple imitation of the instagram application usin
 ## References
 Instagram application (https://www.instagram.com/)
 
-## Description
- It allows user to :
- - Add post 
- - Add comments to a post
- - Delete a comment in the post
- - View all comments on a post
- - Delete a Post
- - Update caption of a post
- - View all post by the user
+---
+
+## Functions
+
+This module allows users to manage posts and comments for various accounts:
+
+1. **Add Post:** Create a new post with pictures, a caption, and hashtags.
+2. **Add Comment:** Add a comment to any existing post.
+3. **Delete Comment:** Remove a specific comment from a post.
+4. **View Comments:** See all comments associated with a particular post.
+5. **Delete Post:** Remove an entire post from an account.
+6. **Update Caption:** Modify the caption of an existing post.
+7. **View All Posts:** Display a summary of all posts made by a specific account.
+
+> 📝 **Note:** This module operates entirely **without a traditional database**, storing all data in memory.
+
+---
+
+## Setup Guide
+
+Follow these steps to get the application running locally:
+
+1.  **Install Node.js:** Ensure you have Node.js installed on your system.
+2.  **Project Folder:** Create a new project directory.
+3.  **Copy Module:** Place the file `Iqtidar_Instagram.js` inside your project folder.
+4.  **Create Test File:** Create a test file (e.g., `app.js`) to interact with the module's functions.
+5.  **Require Module:** Add the following line at the top of your test file:
+    ```javascript
+    const instagramDB = require("./Iqtidar_Instagram.js");
+    ```
+
+---
+
+## Function Reference
 
 
-**This module does not require any database**
+### 1. `AddPost(AccountName, Picture, Caption, Hashtags)`
+Purpose: Adds a new post to the specified account.
 
-## Set Up
- 1. Install Node.js
- 2. Copy the file Iqtidar_Instagram.js into a new project folder
- 3. Create a test file (e.g app.js) to test the functions found in Iqtidar_Instagram.js .
- 4. Ensure you add  ` const instagramDB = require("./Iqtidar_Instagram.js"); ` inside the test file.
+* **Multiple Pictures:** Use commas to separate picture names (e.g., `"sky,dog"`).
+* **Multiple Hashtags:** Use commas to separate hashtags (e.g., `"#YES,#TREND"`).
+* **Validation:** `AccountName` is **case-sensitive**.
 
-## How to call functions, parameters required
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `AccountName` | `String` | The user account creating the post. |
+| `Picture` | `String` | The name(s) of the picture(s). |
+| `Caption` | `String` | The post's description/caption. |
+| `Hashtags` | `String` | The tag(s) associated with the post. |
 
-### 1.AddPost(AccountName,Picture,Caption,Hashtags)
+### 2. `AddComment(AccountName, Post, User, Comment)`
+Purpose: Adds a comment to a post (your own or another user's).
 
-Purpose : Add a post to the Account
-- Can add multiple pictures using commas in the Picture Params String e.g "sky,dog"
-- Can add multiple hashtags using commas in the hashtags Params String e.g "#YES,#TREND"
-- AccountName is case senstiive
+* **Validation:** Checks if the `AccountName` (post owner) and the `Post` exist.
 
-        Parameter(AccountName:String , Picture:String , Caption:String , Hashtags:String)
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `AccountName` | `String` | The owner of the post being commented on. |
+| `Post` | `String` | The name/identifier of the post. |
+| `User` | `String` | The name of the user leaving the comment. |
+| `Comment` | `String` | The content of the comment. |
 
-### 2.AddComment(AccountName,Post,User,Comment)
+### 3. `deleteComment(AccountName, Post, User, Comment)`
+Purpose: Allows the post owner to delete an unwanted comment.
 
-Purpose : Adding a comment to a post whether its your own post or other user's posts
+* **Validation:** Checks for the existence of the `AccountName`, `Post`, and the exact `Comment` text.
 
-- AccountnName is validated , checks if such account name exist in the database
-- Post will be validated  , checks if the post by the selected account exist 
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `AccountName` | `String` | The owner of the post. |
+| `Post` | `String` | The name/identifier of the post. |
+| `User` | `String` | The user who made the comment to be deleted. |
+| `Comment` | `String` | The exact content of the comment to be deleted. |
 
-        Parameter(AccountName:String , Post:String , User:String , Comment:String)
+### 4. `viewAllCommentsByPost(AccountName, Post)`
+Purpose: Retrieves and displays all comments for a specific post.
 
+* **Validation:** Checks for the existence of the `AccountName` and `Post`.
+* **No Comments:** If no comments are found, it returns a message (e.g., "There is no comments for john's post\_1").
 
-### 3.deleteComment(AccountName, post , user ,comment)
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `AccountName` | `String` | The owner of the post. |
+| `Post` | `String` | The name/identifier of the post. |
 
-Purpose : The account can delete comments that it does not want on the post
+### 5. `deletePostByUser(AccountName, Post)`
+Purpose: Deletes an entire post of the selected account.
 
-- AccountnName is validated , checks if such account name exist in the database
-- Post is validated  , checks if the post by the selected account exist 
-- Will check if such comment exist .
+* **Validation:** Checks for the existence of the `AccountName` and `Post`.
 
-        Parameter(AccountName:String , Post:String , User:String , Comment:String) 
-        
-### 4.viewAllCommentsByPost(accountName, post)
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `AccountName` | `String` | The owner of the post. |
+| `Post` | `String` | The name/identifier of the post to delete. |
 
-Purpose : To view all the comment of the selected post
+### 6. `updateCaptionPost(AccountName, Post, NewCaption)`
+Purpose: Modifies the caption of an existing post.
 
-- AccountnName is validated , checks if such account name exist in the database
-- Post is validated  , checks if the post by the selected account exist 
-- Comments is validated , checks if there is any comments. If no comments , return e.g there is no comments for john's post_1 
+* **Validation:** Checks for the existence of the `AccountName` and `Post`.
 
-        Parameter(AccountName:String , Post:String , User:String , Comment:String)
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `AccountName` | `String` | The owner of the post. |
+| `Post` | `String` | The name/identifier of the post. |
+| `NewCaption` | `String` | The updated caption text. |
 
-### 5.deletePostByUser(AccountName,post)
+### 7. `ViewAllPostByUser(AccountName)`
+Purpose: Lists all posts made by a specific account.
 
-Purpose : To delete a post of the selected Account
+* **Output:** For each post, it will show the **post name, pictures, caption, total comments, and hashtags**.
+* **Validation:** Checks for the existence of the `AccountName`.
 
-- AccountnName is validated , checks if such account name exist in the database
-- Post is validated  , checks if the post by the selected account exist 
-
-        Parameter(AccountName:String , Post:String)
-
-### 6.updateCaptionPost(AccountName,Post,NewCaption)
-
-Purpose : To update caption of a selected Account post
-
-- AccountnName is validated , checks if such account name exist in the database
-- Post is validated  , checks if the post by the selected account exist 
-
-        Parameter(AccountName:String , Post:String, NewCaption:String)
-
-### 7.ViewAllPostByUser(AccountName)
-
-Purpose : View all Post posted by the Account
-
-- AccountnName is validated , checks if such account name exist in the database
-- For each post it will show , the post name , picture , caption , total comments , tags
-
-        Parameter(AccountName:String)
-
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `AccountName` | `String` | The account name whose posts will be viewed. |
