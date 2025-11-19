@@ -37,21 +37,30 @@ AddPost(AccountName,pictures, caption ,hashtags){
     }
 
     if (pictures==""){ 
-        return "unable to uplaod Post .Pls have a picture "; // A picture is mandatory for a post
+        // A picture is mandatory for a post
+        return "unable to uplaod Post .Pls have a picture "; 
     }
 
-    let keys= Object.keys(instagramDB[AccountName]) //Keys= [post_1 ,post_2] or keys=[]
+    //keys= [post_1 ,post_2] or keys=[]
+    let keys= Object.keys(instagramDB[AccountName]) 
 
-    if (keys.length === 0) {7
-        postNumber = "post_1";  // First post for this user
+    if (keys.length === 0) {
+        // First post for this user
+        postNumber = "post_1";  
     }
+
     else {
-        let PostbyUser = keys.length - 1 // Index of the last post in keys[]
-        let postIndex = keys[PostbyUser] // Get the key of the last post (e.g., 'post_2')
+         // Index of the last post in keys[]
+        let PostbyUser = keys.length - 1
+
+        // Get the key of the last post (e.g., 'post_2')
+        let postIndex = keys[PostbyUser] 
         postNumber="post_"+(parseInt(postIndex.slice(5))+1).toString(); // Extract the number, increment it, and format the new postNumber
     }
+
     // Process the pictures string: remove brackets/spaces and split by comma
     let Pics = pictures.replace(/[\[\]\s]/g, "").split(","); 
+
     // Process the hashtags string: remove brackets/spaces, split by comma, and remove any leftover commas in tags
     let hash = hashtags.replace(/[\[\]\s]/g, "").split(",").map(tag => tag.replace(/,/g, ""));
 
@@ -74,7 +83,8 @@ AddComment(AccountName, post , user ,comment){
     if(!instagramDB[AccountName][post]){
         return "no post found by "+ AccountName
     }
-    // Add the new comment object to the Account post's comments array
+
+    // Add the new comment by pushing to the Account post's comments array
     instagramDB[AccountName][post].comments.push({
         user: user,
         text: comment
@@ -114,12 +124,15 @@ deleteComment(AccountName, post , user ,comment){
 
 // 4)--------- VIEW ALL COMMENT ON AN ACCOUNT USER POST----------
 viewAllCommentsByPost(accountName, post){
+    // validate account
     if(!instagramDB[accountName]){
-        return "User does not exist";
+        return "User does not exist"; 
     }
+    // validate post
     if(!instagramDB[accountName][post]){
         return "Post does not exist";
     }
+    //validate comment
     if(instagramDB[accountName][post].comments.length==0){
         return "there is no comments for " + accountName + "'s "+ post;
     }
@@ -128,6 +141,7 @@ viewAllCommentsByPost(accountName, post){
     // Prepare the output array, starting with a header
     let output=[`--- Comments for ${accountName}'s ${post} ---`];     
     AllComment.forEach(comment => {
+
     // Iterate over comments and format each one as "user:comment"
         output.push(comment.user+" : "+ comment.text);  
     });
@@ -146,7 +160,7 @@ deletePostByUser(AccountName,post){
         return "Post does not exist";
     }
 
-    // DELETE A SELECTED ACCOUNT USER's POST 
+    // Delete a selected account user's post
     delete instagramDB[AccountName][post];
 
     return AccountName+"'s "+post +" has been successfully deleted"
@@ -176,6 +190,7 @@ ViewAllPostByUser(AccountName){
     }
 
     const UserPost= instagramDB[AccountName];
+    
     // Iterate over each post key in the user's post object
     Object.keys(UserPost).forEach(PostDetails =>{
     const postData = UserPost[PostDetails]
