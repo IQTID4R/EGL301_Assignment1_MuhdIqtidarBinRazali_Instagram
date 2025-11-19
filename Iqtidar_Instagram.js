@@ -38,7 +38,7 @@ AddPost(AccountName,pictures, caption ,hashtags){
 
     if (pictures==""){ 
         // A picture is mandatory for a post
-        return "unable to uplaod Post .Pls have a picture "; 
+        return "Unable to uplaod Post .Please have a picture "; 
     }
 
     //keys= [post_1 ,post_2] or keys=[]
@@ -81,7 +81,10 @@ AddComment(AccountName, post , user ,comment){
         return "No Account Found";
     }
     if(!instagramDB[AccountName][post]){
-        return "no post found by "+ AccountName
+        return "No post found by "+ AccountName
+    }
+    if(comment==""){
+        return "Please input a comment";
     }
 
     // Add the new comment by pushing to the Account post's comments array
@@ -101,7 +104,7 @@ deleteComment(AccountName, post , user ,comment){
         return "No Account Found";
     }
     if(!instagramDB[AccountName][post]){
-        return "no post found by "+ AccountName
+        return "No post found by "+ AccountName
     }
     
     let Allcomments = instagramDB[AccountName][post].comments;
@@ -117,7 +120,7 @@ deleteComment(AccountName, post , user ,comment){
             return "Comment has been successfully deleted"
         
         } else {
-            return "comment does not exist"; // there is no comment matching both user and text was found
+            return "Comment does not exist"; // there is no comment matching both user and text was found
         }
 
     },
@@ -179,7 +182,7 @@ updateCaptionPost(AccountName,Post,NewCaption){
     // Update the caption property of the account user's post
     instagramDB[AccountName][Post].caption =NewCaption
 
-    return "Updatedcaption: '" + NewCaption + "' has been successfully updated for " + AccountName + "'s " +Post
+    return "Updated caption: '" + NewCaption + "' has been successfully updated for " + AccountName + "'s " +Post
     
 },
 
