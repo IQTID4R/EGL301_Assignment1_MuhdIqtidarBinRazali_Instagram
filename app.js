@@ -16,7 +16,7 @@ console.log(instagramDB.AddPost("john","[dog.jpg,asd.jpeg]","ohh","#fqe,#afw,#")
 // Function 2 (AddComment)
 //------------------------
 console.log("\n=========AddComment===========");
-console.log(instagramDB.AddComment("john","post_1","lisa",""));
+console.log(instagramDB.AddComment("john","post_1","lisa","qfw"));
 
 //------------------------
 // Function 3 (DeleteComment)
@@ -34,7 +34,7 @@ console.log(instagramDB.viewAllCommentsByPost("john","post_1"));
 // Function 5 (DeleteUserPost)
 //----------------------------
 console.log("\n=========DeleteUserPost===========");
-console.log(instagramDB.deletePostByUser("john","post_2"))
+console.log(instagramDB.deletePostByUser("john","post_1"));
 
 //----------------------------
 // Function 6 (UpdatePostCaption)

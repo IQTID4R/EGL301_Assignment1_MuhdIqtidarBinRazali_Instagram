@@ -32,13 +32,23 @@ instagramDB={ //Dummy Data to test on
 module.exports={
 // 1) -------- ADD A POST TO AN ACCOUNT USER --------------------
 AddPost(AccountName,pictures, caption ,hashtags){
-    if (!instagramDB[AccountName]){ //Check if user exist
+    if (!instagramDB[AccountName] || AccountName==""){ //Check if user exist
         instagramDB[AccountName]={} //User doesn't exist, create an empty object for their posts
     }
 
-    if (pictures==""){ 
+    if (pictures=="" || !pictures){ 
         // A picture is mandatory for a post
         return "Unable to uplaod Post .Please have a picture "; 
+    }
+
+    if (!caption){
+        //Ensure caption input exist
+        return "Please input a caption";
+    }
+
+    if (!hashtags){
+        //Ensure hashtag input exist
+        return "Please input hashtag";
     }
 
     //keys= [post_1 ,post_2] or keys=[]
@@ -80,13 +90,16 @@ AddPost(AccountName,pictures, caption ,hashtags){
 // 2)-----------ADD COMMENT TO AN ACCOUNT USER POST----------
 AddComment(AccountName, post , user ,comment){
     if(!instagramDB[AccountName]){
-        return "No Account Found";
+        return "No Account Found";  //Ensure account input exist
     }
     if(!instagramDB[AccountName][post]){
-        return "No post found by "+ AccountName
+        return "No post found by "+ AccountName //Ensure post input exist
     }
-    if(comment==""){
-        return "Please input a comment";
+    if(comment=="" ||!comment){
+        return "Invalid comment input"; //Ensure comment input exist
+    }
+    if(!user){
+        return "Invalid user input" //Ensure user input exist
     }
 
     // Add the new comment by pushing to the Account post's comments array
@@ -103,10 +116,20 @@ AddComment(AccountName, post , user ,comment){
 // 3)----------DELETE A USER COMMENT IN AN ACCOUNT USER POST--------------
 deleteComment(AccountName, post , user ,comment){
     if(!instagramDB[AccountName]){
+        //validate Account
         return "No Account Found";
     }
     if(!instagramDB[AccountName][post]){
+        //validate post
         return "No post found by "+ AccountName
+    }
+    if(!user){
+        //validate user
+        return "Invalid User input";
+    }
+    if(!comment){
+        //validate comment
+        return "Invalid comment input";
     }
     
     let Allcomments = instagramDB[AccountName][post].comments;
@@ -130,12 +153,12 @@ deleteComment(AccountName, post , user ,comment){
 // 4)--------- VIEW ALL COMMENT ON AN ACCOUNT USER POST----------
 viewAllCommentsByPost(accountName, post){
     // validate account
-    if(!instagramDB[accountName]){
-        return "User does not exist"; 
+    if(!instagramDB[accountName] || accountName==""){
+        return "Invalid AccountName input!"; 
     }
     // validate post
-    if(!instagramDB[accountName][post]){
-        return "Post does not exist";
+    if(!instagramDB[accountName][post] || post==""){
+        return "Invalid Post input!";
     }
     //validate comment
     if(instagramDB[accountName][post].comments.length==0){
@@ -158,11 +181,13 @@ viewAllCommentsByPost(accountName, post){
 
 // 5)---------DELETE AN ACCOUNT USER POST-------------
 deletePostByUser(AccountName,post){
-    if(!instagramDB[AccountName]){
-        return "User does not exist";
+    if(!instagramDB[AccountName] || AccountName==""){
+        //validate account
+        return "Invalid AccountName input! ";
     }
-    if(!instagramDB[AccountName][post]){
-        return "Post does not exist";
+    if(!instagramDB[AccountName][post] || post==""){
+        //validate post
+        return "Invalid Post input! ";
     }
 
     // Delete a selected account user's post
@@ -174,11 +199,17 @@ deletePostByUser(AccountName,post){
 
 // 6) ------UPDATE CAPTION OF A ACCOUNT USER POST----------
 updateCaptionPost(AccountName,Post,NewCaption){
-    if(!instagramDB[AccountName]){
-        return "User does not exist";
+    if(!instagramDB[AccountName] || AccountName==""){
+        //validate account
+        return "Invalid AccountName input!";
     }
-    if(!instagramDB[AccountName][Post]){
-        return "Post does not exist";
+    if(!instagramDB[AccountName][Post] || Post==""){
+        //validate post
+        return "Invalid Post input!";
+    }
+    if (!NewCaption){
+        //ensure caption input exist
+        return "Please enter a caption! Try again";
     }
 
     // Update the caption property of the account user's post
@@ -190,8 +221,9 @@ updateCaptionPost(AccountName,Post,NewCaption){
 
 // 7)---------VIEW ALL POST BY ACCOUNT USER--------------
 ViewAllPostByUser(AccountName){
-    if(!instagramDB[AccountName]){
-        return "User does not exist"
+    if(!instagramDB[AccountName] || AccountName==""){
+        //validate user
+        return "User does not exist! Try again";
     }
 
     const UserPost= instagramDB[AccountName];
