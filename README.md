@@ -46,7 +46,7 @@ Purpose: Adds a new post to the specified account.
 
 * **Multiple Pictures:** Use commas to separate picture names (e.g., `"sky,dog"`).
 * **Multiple Hashtags:** Use commas to separate hashtags (e.g., `"#YES,#TREND"`).
-* **Validation:** `AccountName` is **case-sensitive**.
+* **Validation:** `AccountName` is **case-sensitive** . Check if `Picture` , `Caption` and `Hashtag` exist.
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
@@ -58,7 +58,7 @@ Purpose: Adds a new post to the specified account.
 ### 2. `AddComment(AccountName, Post, User, Comment)`
 Purpose: Adds a comment to a post (your own or another user's).
 
-* **Validation:** Checks if the `AccountName` (post owner) and the `Post` exist.
+* **Validation:** Checks if the `AccountName` (post owner) , `Post` ,`User` and `Comment` exist.
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
@@ -70,7 +70,7 @@ Purpose: Adds a comment to a post (your own or another user's).
 ### 3. `deleteComment(AccountName, Post, User, Comment)`
 Purpose: Allows the post owner to delete an unwanted comment.
 
-* **Validation:** Checks for the existence of the `AccountName`, `Post`, and the exact `Comment` text.
+* **Validation:** Checks for the existence of the `AccountName`, `Post`, `User`, and the exact `Comment` text.
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
