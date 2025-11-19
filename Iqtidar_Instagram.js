@@ -55,7 +55,9 @@ AddPost(AccountName,pictures, caption ,hashtags){
 
         // Get the key of the last post (e.g., 'post_2')
         let postIndex = keys[PostbyUser] 
-        postNumber="post_"+(parseInt(postIndex.slice(5))+1).toString(); // Extract the number, increment it, and format the new postNumber
+
+        // Extract the number, increment it, and format the new postNumber
+        postNumber="post_"+(parseInt(postIndex.slice(5))+1).toString();    
     }
 
     // Process the pictures string: remove brackets/spaces and split by comma

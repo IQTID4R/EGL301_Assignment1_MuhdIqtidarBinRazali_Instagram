@@ -1,4 +1,4 @@
-# Assignment_1 Instagram
+# Assignment 1 Instagram
 
 This Node.js application is a simple imitation of the instagram application using a custom module **(Iqtidar_instagram.js)**.
 
